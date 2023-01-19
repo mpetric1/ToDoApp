@@ -1,0 +1,168 @@
+{
+    "_version": "1.48.0",
+    "sap.app": {
+        "id": "todoapp",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:lrop",
+            "version": "1.8.4",
+            "toolsId": "d55fc2a5-e471-498d-9287-dd0212bd50fa"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/todo/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotation"
+                    ],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            },
+            "annotation": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation.xml",
+                "settings": {
+                    "localUri": "annotations/annotation.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.109.3",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "todoapp.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "TodoListList",
+                    "target": "TodoListList"
+                },
+                {
+                    "pattern": "TodoList({key}):?query:",
+                    "name": "TodoListObjectPage",
+                    "target": "TodoListObjectPage"
+                },
+                {
+                    "pattern": "TodoList({key})/texts({key2}):?query:",
+                    "name": "TodoList_textsObjectPage",
+                    "target": "TodoList_textsObjectPage"
+                }
+            ],
+            "targets": {
+                "TodoListList": {
+                    "type": "Component",
+                    "id": "TodoListList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "TodoList",
+                            "variantManagement": "Page",
+                            "navigation": {
+                                "TodoList": {
+                                    "detail": {
+                                        "route": "TodoListObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "TodoListObjectPage": {
+                    "type": "Component",
+                    "id": "TodoListObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "TodoList",
+                            "navigation": {
+                                "texts": {
+                                    "detail": {
+                                        "route": "TodoList_textsObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "TodoList_textsObjectPage": {
+                    "type": "Component",
+                    "id": "TodoList_textsObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "TodoList_texts"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    }
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> ToDo List </title>
+    <link rel="stylesheet" href="https://unpkg.com/primitive-ui/dist/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    <style>
+        .hovering tr:hover td { color:cyan; background: #123; cursor: pointer; }
+        .rating-stars { color:teal }
+        .succeeded { color:teal }
+        .failed { color:red }
+        textarea { line-height: 1.4em;}
+    </style>
+</head>
+
+<body class="small-container", style="margin-top: 70px;">
+<div id='app'>
+
+    <h1> ToDo List </h1>
+
+    <input type="text" placeholder="Search..." @input="search">
+
+    <table id='my-todos' class="hovering">
+        <thead>
+            <th> name </th>
+        </thead>
+        <tr v-for="todo in list" v-bind:id="todo.ID" v-on:click="inspect">
+            <td>{{ todo.name }}</td>
+        </tr>
+    </table>
+
+    <div v-if="detail">
+        <textarea v-model="detail.description" rows="4"></textarea>
+    </div>
+
+</div>
+</body>
+
+<script src="app.js"></script>
+</html>
